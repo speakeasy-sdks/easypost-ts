@@ -10,6 +10,6 @@ generation:
   sdkFlattening: true
   singleTagPerOp: false
 typescript:
-  version: 1.0.1
+  version: 1.0.2
   author: EasyPost-Speakeasy
   packageName: EasyPost
