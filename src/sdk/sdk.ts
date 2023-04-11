@@ -3,10 +3,9 @@
  */
 
 import * as utils from "../internal/utils";
-import * as operations from "./models/operations";
 import * as shared from "./models/shared";
 import { Parcels } from "./parcels";
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosInstance } from "axios";
 
 /**
  * Contains the list of servers available to the SDK
@@ -53,7 +52,7 @@ export class SDK {
   public _securityClient: AxiosInstance;
   public _serverURL: string;
   private _language = "typescript";
-  private _sdkVersion = "1.0.0";
+  private _sdkVersion = "1.0.1";
   private _genVersion = "2.17.8";
   private _globals: any;
 
@@ -82,77 +81,5 @@ export class SDK {
       this._sdkVersion,
       this._genVersion
     );
-  }
-
-  /**
-   * Get parcel by ID
-   */
-  getParcel(
-    req: operations.GetParcelRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GetParcelResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GetParcelRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string = utils.generateURL(baseURL, "/parcels/{parcel_id}", req);
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const r = client.request({
-      url: url,
-      method: "get",
-      ...config,
-    });
-
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GetParcelResponse =
-        new operations.GetParcelResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.parcel = utils.deserializeJSONResponse(
-              httpRes?.data,
-              shared.Parcel
-            );
-          }
-          break;
-        case httpRes?.status == 400:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.badRequest = utils.deserializeJSONResponse(
-              httpRes?.data,
-              shared.BadRequest
-            );
-          }
-          break;
-        case httpRes?.status == 401:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.unauthorized = utils.deserializeJSONResponse(
-              httpRes?.data,
-              shared.Unauthorized
-            );
-          }
-          break;
-        case httpRes?.status == 500:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.serverError = utils.deserializeJSONResponse(
-              httpRes?.data,
-              shared.ServerError
-            );
-          }
-          break;
-      }
-
-      return res;
-    });
   }
 }

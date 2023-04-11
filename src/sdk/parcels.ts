@@ -37,7 +37,7 @@ export class Parcels {
   /**
    * Creates a new parcel
    */
-  createParcel(
+  create(
     req: shared.ParcelInput,
     config?: AxiosRequestConfig
   ): Promise<operations.CreateParcelResponse> {
@@ -83,6 +83,78 @@ export class Parcels {
         throw new Error(`status code not found in response: ${httpRes}`);
       const res: operations.CreateParcelResponse =
         new operations.CreateParcelResponse({
+          statusCode: httpRes.status,
+          contentType: contentType,
+          rawResponse: httpRes,
+        });
+      switch (true) {
+        case httpRes?.status == 200:
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.parcel = utils.deserializeJSONResponse(
+              httpRes?.data,
+              shared.Parcel
+            );
+          }
+          break;
+        case httpRes?.status == 400:
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.badRequest = utils.deserializeJSONResponse(
+              httpRes?.data,
+              shared.BadRequest
+            );
+          }
+          break;
+        case httpRes?.status == 401:
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.unauthorized = utils.deserializeJSONResponse(
+              httpRes?.data,
+              shared.Unauthorized
+            );
+          }
+          break;
+        case httpRes?.status == 500:
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.serverError = utils.deserializeJSONResponse(
+              httpRes?.data,
+              shared.ServerError
+            );
+          }
+          break;
+      }
+
+      return res;
+    });
+  }
+
+  /**
+   * Get parcel by ID
+   */
+  get(
+    req: operations.GetParcelRequest,
+    config?: AxiosRequestConfig
+  ): Promise<operations.GetParcelResponse> {
+    if (!(req instanceof utils.SpeakeasyBase)) {
+      req = new operations.GetParcelRequest(req);
+    }
+
+    const baseURL: string = this._serverURL;
+    const url: string = utils.generateURL(baseURL, "/parcels/{parcel_id}", req);
+
+    const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+    const r = client.request({
+      url: url,
+      method: "get",
+      ...config,
+    });
+
+    return r.then((httpRes: AxiosResponse) => {
+      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+      if (httpRes?.status == null)
+        throw new Error(`status code not found in response: ${httpRes}`);
+      const res: operations.GetParcelResponse =
+        new operations.GetParcelResponse({
           statusCode: httpRes.status,
           contentType: contentType,
           rawResponse: httpRes,
