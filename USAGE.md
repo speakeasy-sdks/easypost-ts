@@ -1,24 +1,28 @@
 <!-- Start SDK Example Usage -->
 ```typescript
 import {
-  GetParcelRequest,
-  GetParcelResponse
+  shared.ParcelInput,
+  CreateParcelResponse
 } from "EasyPost/dist/sdk/models/operations";
 
 import { AxiosError } from "axios";
 import { SDK } from "EasyPost";
 const sdk = new SDK({
   security: {
-    password: "YOUR_PASSWORD_HERE",
-    username: "YOUR_USERNAME_HERE",
+    apiKey: "Bearer YOUR_BEARER_TOKEN_HERE",
   },
 });
 
-const req: GetParcelRequest = {
-  parcelId: "corrupti",
+const req: shared.ParcelInput = {
+  parcel: {
+    height: "5",
+    length: "20.2",
+    weight: "65.9",
+    width: "10.9",
+  },
 };
 
-sdk.getParcel(req).then((res: GetParcelResponse | AxiosError) => {
+sdk.parcels.create(req).then((res: CreateParcelResponse | AxiosError) => {
    // handle response
 });
 ```

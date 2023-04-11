@@ -6,12 +6,7 @@ import { SpeakeasyBase, SpeakeasyMetadata } from "../../../internal/utils";
 
 export class Security extends SpeakeasyBase {
   @SpeakeasyMetadata({
-    data: "security, scheme=true;type=http;subtype=basic;name=password",
+    data: "security, scheme=true;type=http;subtype=bearer;name=Authorization",
   })
-  password: string;
-
-  @SpeakeasyMetadata({
-    data: "security, scheme=true;type=http;subtype=basic;name=username",
-  })
-  username: string;
+  apiKey: string;
 }
