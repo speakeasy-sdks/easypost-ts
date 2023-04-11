@@ -6,8 +6,8 @@ import {
 } from "EasyPost/dist/sdk/models/operations";
 
 import { AxiosError } from "axios";
-import { SDK } from "EasyPost";
-const sdk = new SDK({
+import { EasyPost } from "EasyPost";
+const sdk = new EasyPost({
   security: {
     apiKey: "Bearer YOUR_BEARER_TOKEN_HERE",
   },
