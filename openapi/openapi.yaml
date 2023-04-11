@@ -1,0 +1,189 @@
+openapi: 3.1.0
+info:
+  title: EasyPost Parcels API
+  version: 1.0.0
+  description: API for creating parcels using EasyPost.
+
+servers:
+  - url: https://api.easypost.com/v2
+    description: Production Server
+  - url: https://api-sandbox.easypost.com/v2
+    description: Sandbox Server
+security:
+  - api_key: []
+tags: 
+  - name: Parcels
+    description: Operations about parcels
+x-speakeasy-name-override:
+  - operationId: get*
+    methodNameOverride: get
+  - operationId: create*
+    methodNameOverride: create
+paths:
+  /parcels:
+    post:
+      operationId: createParcel
+      tags:
+        - Parcels
+      summary: Creates a new parcel
+      x-speakeasy-usage-example: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ParcelInput"
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Parcel"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Unauthorized"
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerError"
+  /parcels/{parcel_id}:
+    parameters:
+      - name: parcel_id
+        in: path
+        required: true
+        description: ID of the parcel to retrieve
+        schema:
+          type: string
+    get:
+      tags: 
+        -  Parcels
+      summary: Get parcel by ID
+      operationId: getParcel
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Parcel"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Unauthorized"
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServerError"
+components:
+  securitySchemes:
+    api_key:
+      type: http
+      scheme: bearer
+  schemas:
+    ParcelInput:
+      type: object
+      properties:
+        parcel:
+          type: object
+          properties:
+            length:
+              type: string
+              example: "20.2"
+            width:
+              type: string
+              example: "10.9"
+            height:
+              type: string
+              example: "5"
+            weight:
+              type: string
+              example: "65.9"
+          required:
+            - length
+            - width
+            - height
+            - weight
+    Parcel:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "prcl_f1e15ba5892749e2a039a70b4d83d5d1"
+        object:
+          type: string
+          example: "Parcel"
+        created_at:
+          type: string
+          format: date-time
+          example: "2022-10-17T17:17:08Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2022-10-17T17:17:08Z"
+        length:
+          type: number
+          format: float
+          example: 20.2
+        width:
+          type: number
+          format: float
+          example: 10.9
+        height:
+          type: number
+          format: float
+          example: 5.0
+        predefined_package:
+          type: null
+          example: null
+        weight:
+          type: number
+          format: float
+          example: 65.9
+        mode:
+          type: string
+          example: "test"
+
+    BadRequest:
+      description: Bad Request Error
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Invalid parameter"
+    Unauthorized:
+      description: Unauthorized Error
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Authentication failed"
+    ServerError:
+      description: Server Error
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Internal server error"
+
