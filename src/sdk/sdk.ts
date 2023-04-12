@@ -5,7 +5,8 @@
 import * as utils from "../internal/utils";
 import * as shared from "./models/shared";
 import { Parcels } from "./parcels";
-import axios, { AxiosInstance } from "axios";
+import axios from "axios";
+import { AxiosInstance } from "axios";
 
 /**
  * Contains the list of servers available to the SDK
@@ -52,8 +53,8 @@ export class EasyPost {
   public _securityClient: AxiosInstance;
   public _serverURL: string;
   private _language = "typescript";
-  private _sdkVersion = "1.0.3";
-  private _genVersion = "2.17.8";
+  private _sdkVersion = "1.0.4";
+  private _genVersion = "2.17.9";
   private _globals: any;
 
   constructor(props?: SDKProps) {

@@ -90,15 +90,12 @@ export class Parcels {
       switch (true) {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.parcel = utils.deserializeJSONResponse(
-              httpRes?.data,
-              shared.Parcel
-            );
+            res.parcel = utils.objectToClass(httpRes?.data, shared.Parcel);
           }
           break;
         case httpRes?.status == 400:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.badRequest = utils.deserializeJSONResponse(
+            res.badRequest = utils.objectToClass(
               httpRes?.data,
               shared.BadRequest
             );
@@ -106,7 +103,7 @@ export class Parcels {
           break;
         case httpRes?.status == 401:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.unauthorized = utils.deserializeJSONResponse(
+            res.unauthorized = utils.objectToClass(
               httpRes?.data,
               shared.Unauthorized
             );
@@ -114,7 +111,7 @@ export class Parcels {
           break;
         case httpRes?.status == 500:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.serverError = utils.deserializeJSONResponse(
+            res.serverError = utils.objectToClass(
               httpRes?.data,
               shared.ServerError
             );
@@ -162,15 +159,12 @@ export class Parcels {
       switch (true) {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.parcel = utils.deserializeJSONResponse(
-              httpRes?.data,
-              shared.Parcel
-            );
+            res.parcel = utils.objectToClass(httpRes?.data, shared.Parcel);
           }
           break;
         case httpRes?.status == 400:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.badRequest = utils.deserializeJSONResponse(
+            res.badRequest = utils.objectToClass(
               httpRes?.data,
               shared.BadRequest
             );
@@ -178,7 +172,7 @@ export class Parcels {
           break;
         case httpRes?.status == 401:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.unauthorized = utils.deserializeJSONResponse(
+            res.unauthorized = utils.objectToClass(
               httpRes?.data,
               shared.Unauthorized
             );
@@ -186,7 +180,7 @@ export class Parcels {
           break;
         case httpRes?.status == 500:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.serverError = utils.deserializeJSONResponse(
+            res.serverError = utils.objectToClass(
               httpRes?.data,
               shared.ServerError
             );
