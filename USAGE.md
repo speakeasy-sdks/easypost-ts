@@ -1,12 +1,9 @@
 <!-- Start SDK Example Usage -->
 ```typescript
-import {
-  shared.ParcelInput,
-  CreateParcelResponse
-} from "EasyPost/dist/sdk/models/operations";
-
-import { AxiosError } from "axios";
 import { EasyPost } from "EasyPost";
+import { CreateParcelResponse, ParcelInput } from "EasyPost/dist/sdk/models/operations";
+import { AxiosError } from "axios";
+
 const sdk = new EasyPost({
   security: {
     apiKey: "Bearer YOUR_BEARER_TOKEN_HERE",
@@ -23,7 +20,9 @@ const req: shared.ParcelInput = {
 };
 
 sdk.parcels.create(req).then((res: CreateParcelResponse | AxiosError) => {
-   // handle response
+  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+    // handle response
+  }
 });
 ```
 <!-- End SDK Example Usage -->

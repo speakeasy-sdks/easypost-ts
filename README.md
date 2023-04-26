@@ -19,13 +19,10 @@ yarn add https://github.com/speakeasy-sdks/easypost-ts
 ## SDK Example Usage
 <!-- Start SDK Example Usage -->
 ```typescript
-import {
-  shared.ParcelInput,
-  CreateParcelResponse
-} from "EasyPost/dist/sdk/models/operations";
-
-import { AxiosError } from "axios";
 import { EasyPost } from "EasyPost";
+import { CreateParcelResponse, ParcelInput } from "EasyPost/dist/sdk/models/operations";
+import { AxiosError } from "axios";
+
 const sdk = new EasyPost({
   security: {
     apiKey: "Bearer YOUR_BEARER_TOKEN_HERE",
@@ -42,7 +39,9 @@ const req: shared.ParcelInput = {
 };
 
 sdk.parcels.create(req).then((res: CreateParcelResponse | AxiosError) => {
-   // handle response
+  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+    // handle response
+  }
 });
 ```
 <!-- End SDK Example Usage -->
@@ -51,10 +50,10 @@ sdk.parcels.create(req).then((res: CreateParcelResponse | AxiosError) => {
 ## Available Resources and Operations
 
 
-### parcels
+### [parcels](docs/parcels/README.md)
 
-* `create` - Creates a new parcel
-* `get` - Get parcel by ID
+* [create](docs/parcels/README.md#create) - Creates a new parcel
+* [get](docs/parcels/README.md#get) - Get parcel by ID
 <!-- End SDK Available Operations -->
 
 ### Maturity
