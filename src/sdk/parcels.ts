@@ -37,7 +37,7 @@ export class Parcels {
   /**
    * Creates a new parcel
    */
-  create(
+  async create(
     req: shared.ParcelInput,
     config?: AxiosRequestConfig
   ): Promise<operations.CreateParcelResponse> {
@@ -68,7 +68,8 @@ export class Parcels {
     if (reqBody == null || Object.keys(reqBody).length === 0)
       throw new Error("request body is required");
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "post",
       headers: headers,
@@ -76,57 +77,57 @@ export class Parcels {
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.CreateParcelResponse =
-        new operations.CreateParcelResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.parcel = utils.objectToClass(httpRes?.data, shared.Parcel);
-          }
-          break;
-        case httpRes?.status == 400:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.badRequest = utils.objectToClass(
-              httpRes?.data,
-              shared.BadRequest
-            );
-          }
-          break;
-        case httpRes?.status == 401:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.unauthorized = utils.objectToClass(
-              httpRes?.data,
-              shared.Unauthorized
-            );
-          }
-          break;
-        case httpRes?.status == 500:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.serverError = utils.objectToClass(
-              httpRes?.data,
-              shared.ServerError
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
-    });
+    const res: operations.CreateParcelResponse =
+      new operations.CreateParcelResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.parcel = utils.objectToClass(httpRes?.data, shared.Parcel);
+        }
+        break;
+      case httpRes?.status == 400:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.badRequest = utils.objectToClass(
+            httpRes?.data,
+            shared.BadRequest
+          );
+        }
+        break;
+      case httpRes?.status == 401:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.unauthorized = utils.objectToClass(
+            httpRes?.data,
+            shared.Unauthorized
+          );
+        }
+        break;
+      case httpRes?.status == 500:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.serverError = utils.objectToClass(
+            httpRes?.data,
+            shared.ServerError
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 
   /**
    * Get parcel by ID
    */
-  get(
+  async get(
     req: operations.GetParcelRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GetParcelResponse> {
@@ -139,56 +140,56 @@ export class Parcels {
 
     const client: AxiosInstance = this._securityClient || this._defaultClient;
 
-    const r = client.request({
+    const httpRes: AxiosResponse = await client.request({
+      validateStatus: () => true,
       url: url,
       method: "get",
       ...config,
     });
 
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+    const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GetParcelResponse =
-        new operations.GetParcelResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.parcel = utils.objectToClass(httpRes?.data, shared.Parcel);
-          }
-          break;
-        case httpRes?.status == 400:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.badRequest = utils.objectToClass(
-              httpRes?.data,
-              shared.BadRequest
-            );
-          }
-          break;
-        case httpRes?.status == 401:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.unauthorized = utils.objectToClass(
-              httpRes?.data,
-              shared.Unauthorized
-            );
-          }
-          break;
-        case httpRes?.status == 500:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.serverError = utils.objectToClass(
-              httpRes?.data,
-              shared.ServerError
-            );
-          }
-          break;
-      }
+    if (httpRes?.status == null) {
+      throw new Error(`status code not found in response: ${httpRes}`);
+    }
 
-      return res;
+    const res: operations.GetParcelResponse = new operations.GetParcelResponse({
+      statusCode: httpRes.status,
+      contentType: contentType,
+      rawResponse: httpRes,
     });
+    switch (true) {
+      case httpRes?.status == 200:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.parcel = utils.objectToClass(httpRes?.data, shared.Parcel);
+        }
+        break;
+      case httpRes?.status == 400:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.badRequest = utils.objectToClass(
+            httpRes?.data,
+            shared.BadRequest
+          );
+        }
+        break;
+      case httpRes?.status == 401:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.unauthorized = utils.objectToClass(
+            httpRes?.data,
+            shared.Unauthorized
+          );
+        }
+        break;
+      case httpRes?.status == 500:
+        if (utils.matchContentType(contentType, `application/json`)) {
+          res.serverError = utils.objectToClass(
+            httpRes?.data,
+            shared.ServerError
+          );
+        }
+        break;
+    }
+
+    return res;
   }
 }

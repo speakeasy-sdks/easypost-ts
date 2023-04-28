@@ -17,8 +17,7 @@ Creates a new parcel
 
 ```typescript
 import { EasyPost } from "EasyPost";
-import { CreateParcelResponse, ParcelInput } from "EasyPost/dist/sdk/models/operations";
-import { AxiosError } from "axios";
+import { CreateParcelResponse } from "EasyPost/dist/sdk/models/operations";
 
 const sdk = new EasyPost({
   security: {
@@ -26,17 +25,15 @@ const sdk = new EasyPost({
   },
 });
 
-const req: shared.ParcelInput = {
+sdk.parcels.create({
   parcel: {
     height: "5",
     length: "20.2",
     weight: "65.9",
     width: "10.9",
   },
-};
-
-sdk.parcels.create(req).then((res: CreateParcelResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: CreateParcelResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });
@@ -50,8 +47,7 @@ Get parcel by ID
 
 ```typescript
 import { EasyPost } from "EasyPost";
-import { GetParcelRequest, GetParcelResponse } from "EasyPost/dist/sdk/models/operations";
-import { AxiosError } from "axios";
+import { GetParcelResponse } from "EasyPost/dist/sdk/models/operations";
 
 const sdk = new EasyPost({
   security: {
@@ -59,12 +55,10 @@ const sdk = new EasyPost({
   },
 });
 
-const req: GetParcelRequest = {
+sdk.parcels.get({
   parcelId: "corrupti",
-};
-
-sdk.parcels.get(req).then((res: GetParcelResponse | AxiosError) => {
-  if (res instanceof UsageExamplePostResponse && res.statusCode == 200) {
+}).then((res: GetParcelResponse) => {
+  if (res.statusCode == 200) {
     // handle response
   }
 });

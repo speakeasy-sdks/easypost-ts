@@ -2,13 +2,13 @@ configVersion: 1.0.0
 management:
   docChecksum: ee10149375f0956f122dc755f0ce856c
   docVersion: 1.0.0
-  speakeasyVersion: 1.25.1
-  generationVersion: 2.22.0
+  speakeasyVersion: 1.26.2
+  generationVersion: 2.23.2
 generation:
   telemetryEnabled: false
   sdkClassName: EasyPost
   singleTagPerOp: false
 typescript:
-  version: 1.5.0
+  version: 1.6.0
   author: EasyPost-Speakeasy
   packageName: EasyPost
