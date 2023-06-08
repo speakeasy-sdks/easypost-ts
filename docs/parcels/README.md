@@ -21,7 +21,7 @@ import { CreateParcelResponse } from "EasyPost/dist/sdk/models/operations";
 
 const sdk = new EasyPost({
   security: {
-    apiKey: "YOUR_BEARER_TOKEN_HERE",
+    apiKey: "",
   },
 });
 
@@ -51,7 +51,7 @@ import { GetParcelResponse } from "EasyPost/dist/sdk/models/operations";
 
 const sdk = new EasyPost({
   security: {
-    apiKey: "YOUR_BEARER_TOKEN_HERE",
+    apiKey: "",
   },
 });
 
