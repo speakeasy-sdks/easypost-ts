@@ -7,36 +7,36 @@ import * as shared from "../shared";
 import { AxiosResponse } from "axios";
 
 export class CreateParcelResponse extends SpeakeasyBase {
-  /**
-   * Bad Request
-   */
-  @SpeakeasyMetadata()
-  badRequest?: shared.BadRequest;
+    /**
+     * Bad Request
+     */
+    @SpeakeasyMetadata()
+    badRequest?: shared.BadRequest;
 
-  @SpeakeasyMetadata()
-  contentType: string;
+    @SpeakeasyMetadata()
+    contentType: string;
 
-  /**
-   * Successful operation
-   */
-  @SpeakeasyMetadata()
-  parcel?: shared.Parcel;
+    /**
+     * Successful operation
+     */
+    @SpeakeasyMetadata()
+    parcel?: shared.Parcel;
 
-  /**
-   * Server Error
-   */
-  @SpeakeasyMetadata()
-  serverError?: shared.ServerError;
+    /**
+     * Server Error
+     */
+    @SpeakeasyMetadata()
+    serverError?: shared.ServerError;
 
-  @SpeakeasyMetadata()
-  statusCode: number;
+    @SpeakeasyMetadata()
+    statusCode: number;
 
-  @SpeakeasyMetadata()
-  rawResponse?: AxiosResponse;
+    @SpeakeasyMetadata()
+    rawResponse?: AxiosResponse;
 
-  /**
-   * Unauthorized
-   */
-  @SpeakeasyMetadata()
-  unauthorized?: shared.Unauthorized;
+    /**
+     * Unauthorized
+     */
+    @SpeakeasyMetadata()
+    unauthorized?: shared.Unauthorized;
 }

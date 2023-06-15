@@ -9,7 +9,7 @@ import { Expose } from "class-transformer";
  * Unauthorized Error
  */
 export class Unauthorized extends SpeakeasyBase {
-  @SpeakeasyMetadata()
-  @Expose({ name: "error" })
-  error?: string;
+    @SpeakeasyMetadata()
+    @Expose({ name: "error" })
+    error?: string;
 }
