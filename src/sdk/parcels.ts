@@ -83,11 +83,25 @@ export class Parcels {
             case httpRes?.status == 200:
                 if (utils.matchContentType(contentType, `application/json`)) {
                     res.parcel = utils.objectToClass(JSON.parse(decodedRes), shared.Parcel);
+                } else {
+                    throw new errors.SDKError(
+                        "unknown content-type received: " + contentType,
+                        httpRes.status,
+                        decodedRes,
+                        httpRes
+                    );
                 }
                 break;
             case httpRes?.status == 400:
                 if (utils.matchContentType(contentType, `application/json`)) {
                     res.badRequest = utils.objectToClass(JSON.parse(decodedRes), shared.BadRequest);
+                } else {
+                    throw new errors.SDKError(
+                        "unknown content-type received: " + contentType,
+                        httpRes.status,
+                        decodedRes,
+                        httpRes
+                    );
                 }
                 break;
             case httpRes?.status == 401:
@@ -96,6 +110,13 @@ export class Parcels {
                         JSON.parse(decodedRes),
                         shared.Unauthorized
                     );
+                } else {
+                    throw new errors.SDKError(
+                        "unknown content-type received: " + contentType,
+                        httpRes.status,
+                        decodedRes,
+                        httpRes
+                    );
                 }
                 break;
             case httpRes?.status == 500:
@@ -103,6 +124,13 @@ export class Parcels {
                     res.serverError = utils.objectToClass(
                         JSON.parse(decodedRes),
                         shared.ServerError
+                    );
+                } else {
+                    throw new errors.SDKError(
+                        "unknown content-type received: " + contentType,
+                        httpRes.status,
+                        decodedRes,
+                        httpRes
                     );
                 }
                 break;
@@ -163,11 +191,25 @@ export class Parcels {
             case httpRes?.status == 200:
                 if (utils.matchContentType(contentType, `application/json`)) {
                     res.parcel = utils.objectToClass(JSON.parse(decodedRes), shared.Parcel);
+                } else {
+                    throw new errors.SDKError(
+                        "unknown content-type received: " + contentType,
+                        httpRes.status,
+                        decodedRes,
+                        httpRes
+                    );
                 }
                 break;
             case httpRes?.status == 400:
                 if (utils.matchContentType(contentType, `application/json`)) {
                     res.badRequest = utils.objectToClass(JSON.parse(decodedRes), shared.BadRequest);
+                } else {
+                    throw new errors.SDKError(
+                        "unknown content-type received: " + contentType,
+                        httpRes.status,
+                        decodedRes,
+                        httpRes
+                    );
                 }
                 break;
             case httpRes?.status == 401:
@@ -176,6 +218,13 @@ export class Parcels {
                         JSON.parse(decodedRes),
                         shared.Unauthorized
                     );
+                } else {
+                    throw new errors.SDKError(
+                        "unknown content-type received: " + contentType,
+                        httpRes.status,
+                        decodedRes,
+                        httpRes
+                    );
                 }
                 break;
             case httpRes?.status == 500:
@@ -183,6 +232,13 @@ export class Parcels {
                     res.serverError = utils.objectToClass(
                         JSON.parse(decodedRes),
                         shared.ServerError
+                    );
+                } else {
+                    throw new errors.SDKError(
+                        "unknown content-type received: " + contentType,
+                        httpRes.status,
+                        decodedRes,
+                        httpRes
                     );
                 }
                 break;
