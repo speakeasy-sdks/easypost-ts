@@ -29,6 +29,7 @@ src/sdk/models/shared/badrequest.ts
 src/sdk/models/shared/parcelinput.ts
 src/sdk/models/shared/security.ts
 src/sdk/models/shared/index.ts
+src/sdk/models/errors/index.ts
 docs/sdks/easypost/README.md
 docs/sdks/parcels/README.md
 USAGE.md
