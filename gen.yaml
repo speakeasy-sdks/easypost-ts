@@ -2,8 +2,8 @@ configVersion: 1.0.0
 management:
   docChecksum: ee10149375f0956f122dc755f0ce856c
   docVersion: 1.0.0
-  speakeasyVersion: 1.69.1
-  generationVersion: 2.82.0
+  speakeasyVersion: 1.73.1
+  generationVersion: 2.84.3
 generation:
   sdkClassName: EasyPost
   sdkFlattening: true
@@ -14,10 +14,10 @@ features:
     core: 2.82.0
     examples: 2.81.1
     globalSecurity: 2.81.1
-    globalServerURLs: 2.81.1
+    globalServerURLs: 2.82.0
     nameOverrides: 2.81.1
 typescript:
-  version: 1.19.0
+  version: 1.20.0
   author: EasyPost-Speakeasy
   maxMethodParams: 0
   packageName: EasyPost
