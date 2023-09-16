@@ -49,7 +49,7 @@ sdk.parcels.create({
 ## Available Resources and Operations
 
 
-### [parcels](docs/sdks/parcels/README.md)
+### [Parcels](docs/sdks/parcels/README.md)
 
 * [create](docs/sdks/parcels/README.md#create) - Creates a new parcel
 * [get](docs/sdks/parcels/README.md#get) - Get parcel by ID
