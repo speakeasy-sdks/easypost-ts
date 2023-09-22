@@ -30,8 +30,6 @@ src/sdk/models/shared/parcelinput.ts
 src/sdk/models/shared/security.ts
 src/sdk/models/shared/index.ts
 src/sdk/models/errors/index.ts
-docs/sdks/easypost/README.md
-docs/sdks/parcels/README.md
 USAGE.md
 docs/models/operations/createparcelresponse.md
 docs/models/operations/getparcelrequest.md
@@ -43,4 +41,6 @@ docs/models/shared/badrequest.md
 docs/models/shared/parcelinputparcel.md
 docs/models/shared/parcelinput.md
 docs/models/shared/security.md
+docs/sdks/easypost/README.md
+docs/sdks/parcels/README.md
 .gitattributes
