@@ -1,7 +1,5 @@
 # Parcel
 
-Successful operation
-
 
 ## Fields
 

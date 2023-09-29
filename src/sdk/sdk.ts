@@ -29,7 +29,7 @@ export type SDKProps = {
     /**
      * The security details required to authenticate the SDK
      */
-    security?: shared.Security;
+    security?: shared.Security | (() => Promise<shared.Security>);
     /**
      * Allows overriding the default axios client used by the SDK
      */
@@ -44,18 +44,23 @@ export type SDKProps = {
      * Allows overriding the default server URL used by the SDK
      */
     serverURL?: string;
+    /**
+     * Allows overriding the default retry config used by the SDK
+     */
+    retryConfig?: utils.RetryConfig;
 };
 
 export class SDKConfiguration {
     defaultClient: AxiosInstance;
-    securityClient: AxiosInstance;
+    security?: shared.Security | (() => Promise<shared.Security>);
     serverURL: string;
     serverDefaults: any;
     language = "typescript";
     openapiDocVersion = "1.0.0";
-    sdkVersion = "1.1.0";
-    genVersion = "2.40.1";
-
+    sdkVersion = "1.26.0";
+    genVersion = "2.139.1";
+    userAgent = "speakeasy-sdk/typescript 1.26.0 2.139.1 1.0.0 EasyPost";
+    retryConfig?: utils.RetryConfig;
     public constructor(init?: Partial<SDKConfiguration>) {
         Object.assign(this, init);
     }
@@ -81,20 +86,11 @@ export class EasyPost {
         }
 
         const defaultClient = props?.defaultClient ?? axios.create({ baseURL: serverURL });
-        let securityClient = defaultClient;
-
-        if (props?.security) {
-            let security: shared.Security = props.security;
-            if (!(props.security instanceof utils.SpeakeasyBase)) {
-                security = new shared.Security(props.security);
-            }
-            securityClient = utils.createSecurityClient(defaultClient, security);
-        }
-
         this.sdkConfiguration = new SDKConfiguration({
             defaultClient: defaultClient,
-            securityClient: securityClient,
+            security: props?.security,
             serverURL: serverURL,
+            retryConfig: props?.retryConfig,
         });
 
         this.parcels = new Parcels(this.sdkConfiguration);

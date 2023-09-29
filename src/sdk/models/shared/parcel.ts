@@ -5,9 +5,6 @@
 import { SpeakeasyBase, SpeakeasyMetadata } from "../../../internal/utils";
 import { Expose, Transform } from "class-transformer";
 
-/**
- * Successful operation
- */
 export class Parcel extends SpeakeasyBase {
     @SpeakeasyMetadata()
     @Expose({ name: "created_at" })
