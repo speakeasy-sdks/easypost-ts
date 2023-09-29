@@ -70,7 +70,7 @@ const sdk = new EasyPost({
 });
 
 sdk.parcels.get({
-  parcelId: "corrupti",
+  parcelId: "Northeast Hatchback Kia",
 }).then((res: GetParcelResponse) => {
   if (res.statusCode == 200) {
     // handle response
